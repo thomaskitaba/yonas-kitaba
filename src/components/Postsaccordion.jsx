@@ -5,8 +5,38 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import {ArrowUpCircle, ArrowDownCircle, Explicit} from "react-bootstrap-icons";
 export const Postsaccordion = (props) => {
-  // get current day
+  // set current day| endpoint | environemt variables
+  const FILE_ID = '27895fdb-696a-4d92-8700-e4b4c7bc9c40'; //process.env.REACT_APP_FILE_ID;
+  const API_KEY = 'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO';//process.env.REACT_APP_API_KEY;
+  const endpoint = `https://api.jsonsilo.com/${FILE_ID}`;
   const currentDay = new Date().toISOString().slice(0, 10);
+
+
+  useEffect(()=> {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            'X-SILO-KEY': API_KEY,
+            'Content-Type': 'application/json'
+          },
+        });
+
+        // return response.data;
+        setTest(response.data);
+        alert(response.data);
+      } catch (error) {
+        alert('Error fetching data:', error);
+        return null;
+      }
+    };
+    // const fetchJSONData = async () => {
+    //       const jsonData = await fetchData();
+    //       setTest(jsonData);
+    //     alert(jsonData);
+    // }
+  }, []);
+
   const formInitialsDetail = {
     "id": '',
     "text": "",
@@ -26,12 +56,13 @@ export const Postsaccordion = (props) => {
   const [checked, setChecked] = useState(false);
   const [displayText, setDisplayText] = useState('Expand individually');
   // const [postId, setpostId] = useState('');
-  const [userName, setUserName] = useState('Unkown');
+  const [userName, setUserName] = useState('');
+  const [newPost, setNewPost] = useState(false);
   const [commentText, setCommentText] = useState('Write Comment')
+  const [test, setTest] = useState('');
 
-
-
-  // **** samplData ****
+  const [notifications, setNotifications] = useState(['', false]);
+  // **** sampleData ****
   // this will be replaced by fetched data
   const lore = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate."
   const data = {
@@ -128,7 +159,7 @@ export const Postsaccordion = (props) => {
   const [nameAvailable, setNameAvailable] = useState(false);
   const userNameFormUpdate = (postObject, value) => {
     if (value === "" && userName === "") {
-      setUserName('Unknown');
+      setUserName('');
     }
     else if (nameAvailable == false && value != "") {
 
@@ -160,8 +191,6 @@ export const Postsaccordion = (props) => {
   }
 // fetch data here and strore it in jsonData variable
 const [Data, setData] = useState(data);
-
-
 
   const handleDataSubmit = (pid) => {
     // alert(JSON.stringify(comment)); test    works
@@ -195,8 +224,6 @@ const [Data, setData] = useState(data);
     setCommentText('Comment');
   }
   // Handle Comment
-
-
 // enable user collapse and expand accrodion all as one, or individually
   const handleCheckboxChange = (e) => {
     setChecked(e.target.checked);
@@ -204,8 +231,13 @@ const [Data, setData] = useState(data);
     // alert("hello thomas kitaba");
   };
 
+
+  // const notifications =  ['', false];
+  // {newPost && notifications.push(newPost)};
+
   return (
     <>
+    <div> <Notification notifications={notifications} /></div>
     <div class="toggle">
       <input type="checkbox" name="toggle" class="toggle-cb" id="toggle-0" onChange={handleCheckboxChange}/>
       <label class="toggle-label" for="toggle-0">

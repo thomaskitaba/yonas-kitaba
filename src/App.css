@@ -44,8 +44,6 @@
   --clr-btn-light: #F8F9FA;                                        /* Light background color for buttons */
   --clr-btn-dark: linear-gradient(90deg, #23272b, #343A40);        /* Dark background color for buttons */
 
-
-
   --txt-primary-clr:  #d5823a;
 }
 .logo {
@@ -562,6 +560,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 10px;
   background-color: var(--clr-bg-lightblue);
   min-height: 40px;
+  width: 80%;
 }
 .comment-container {
   background-color: var(--clr-bg-pastelblue);
@@ -584,10 +583,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 100%;
 }
 textarea {
+
   min-height: 40px;
   padding: 10px;
   border-radius: 10px;
-  width: 99%;
+  width: 95%;
 }
 .comment-button-container {
   background-color: blue;
@@ -596,4 +596,27 @@ textarea {
 }
 .form{
   background-color: blue;
+}
+
+
+/* **** Notifications */
+.notification-container {
+position: relative;
+width: 100%;
+background-color: yellow;
+padding: 20px;
+margin-top: 20px;
+border-radius: 10px;
+}
+.notification-container::before {
+  content: 'Notification';
+  position: absolute;
+  font-size: 1.25rem;
+
+  left: 0px;
+  top: -15px;
+  background-color: yellow;
+  border-radius: 10px;
+  padding: 0 5px;
+
 }

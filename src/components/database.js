@@ -1,4 +1,4 @@
-const sampleData = {
+ {
   "record": {
     "posts": [
       {
@@ -87,5 +87,3 @@ const sampleData = {
     "createdAt": "2024-01-12T17:12:40.611Z"
   }
 }
-
-
