@@ -5,38 +5,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import {ArrowUpCircle, ArrowDownCircle, Explicit} from "react-bootstrap-icons";
 export const Postsaccordion = (props) => {
-  // set current day| endpoint | environemt variables
-  const FILE_ID = '27895fdb-696a-4d92-8700-e4b4c7bc9c40'; //process.env.REACT_APP_FILE_ID;
-  const API_KEY = 'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO';//process.env.REACT_APP_API_KEY;
-  const endpoint = `https://api.jsonsilo.com/${FILE_ID}`;
+  // get current day
   const currentDay = new Date().toISOString().slice(0, 10);
-
-
-  useEffect(()=> {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(endpoint, {
-          headers: {
-            'X-SILO-KEY': API_KEY,
-            'Content-Type': 'application/json'
-          },
-        });
-
-        // return response.data;
-        setTest(response.data);
-        alert(response.data);
-      } catch (error) {
-        alert('Error fetching data:', error);
-        return null;
-      }
-    };
-    // const fetchJSONData = async () => {
-    //       const jsonData = await fetchData();
-    //       setTest(jsonData);
-    //     alert(jsonData);
-    // }
-  }, []);
-
   const formInitialsDetail = {
     "id": '',
     "text": "",
@@ -56,18 +26,16 @@ export const Postsaccordion = (props) => {
   const [checked, setChecked] = useState(false);
   const [displayText, setDisplayText] = useState('Expand individually');
   // const [postId, setpostId] = useState('');
-  const [userName, setUserName] = useState('');
-  const [newPost, setNewPost] = useState(false);
+  const [userName, setUserName] = useState('Unkown');
   const [commentText, setCommentText] = useState('Write Comment')
-  const [test, setTest] = useState('');
 
-  const [notifications, setNotifications] = useState(['', false]);
-  // **** sampleData ****
+
+
+  // **** samplData ****
   // this will be replaced by fetched data
   const lore = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate."
   const data = {
   "record": {
-
     "posts": [
       {
         "id": 1,
@@ -82,7 +50,6 @@ export const Postsaccordion = (props) => {
             "text": "This is a comment on the first post.",
             "user": "Commenter1",
             "commentDate": "22-11-23",
-            "likes": 5,
             "replies": [
               {
                 "id": 1,
@@ -96,7 +63,6 @@ export const Postsaccordion = (props) => {
             "text": "Another comment on the first post.",
             "user": "Commenter2",
             "commentDate": "22-11-23",
-            "likes": 8,
             "replies": []
           }
         ]
@@ -105,7 +71,7 @@ export const Postsaccordion = (props) => {
         "id": 2,
         "title": "Second Post",
         "content": "Content for the second post goes here.",
-        "author": "Jane Smith",
+        "author": "Yonas Kitaba",
         "postDate": "22-11-23",
         "likes": 1,
         "comments": [
@@ -114,7 +80,6 @@ export const Postsaccordion = (props) => {
             "text": "Comment on the second post.",
             "user": "Commenter3",
             "commentDate": "22-11-23",
-            "likes": 12,
             "replies": [
               {
                 "id": 1,
@@ -127,10 +92,10 @@ export const Postsaccordion = (props) => {
       },
       {
         "id": 3,
-        "title": "Third Post",
-        "content": "Third post content.",
-        "author": "Alex Johnson",
-        "postDate": "22-11-23",
+        "title": "Education reimagined",
+        "content": lore,
+        "author": "Yonas Kitaba",
+        "postDate": "22-11-25",
         "likes": 1,
         "comments": [
           {
@@ -138,19 +103,19 @@ export const Postsaccordion = (props) => {
             "text": "Comment on the third post.",
             "user": "Commenter4",
             "commentDate": "22-11-23",
-            "likes": 3,
             "replies": []
           }
         ]
       }
     ],
     "users": [
-      { "userId": 1, "userName": "Abebe", "userEmail": "aaaaaaaaaa@gmail.com", "createdDate": "2022-11-23" },
-      { "userId": 2, "userName": "Kebede", "userEmail": "bbbbbbbbbb@gmail.com", "createdDate": "2022-11-23" },
-      { "userId": 3, "userName": "bekele", "userEmail": "cccccccccc@gmail.com", "createdDate": "2022-11-23" }
+      {"userId": 0, "userName": 'unknown', "userEmail": 'empty', 'createdDate': '22-11-23'},
+      {"userId": 1, "userName": 'Abebe', "userEmail": 'aaaaaaaaaa@gmail.com', 'createdDate': '22-11-23'},
+      {"userId": 1, "userName": 'Kebede', "userEmail": 'bbbbbbbbbb@gmail.com',  'createdDate': '22-11-23'},
+      {"userId": 1, "userName": 'bekele', "userEmail": 'cccccccccc@gmail.com', 'createdDate': '22-11-23'}
     ],
     "authors": [
-      { "authorId": 1, "authorName": "Yonas Kitaba", "authorTitle": "consultant" }
+      {"authorId": 1, "authorName": 'Yonas Kitaba', "authorTitle": 'consultant'},
     ]
   },
   "metadata": {
@@ -163,7 +128,7 @@ export const Postsaccordion = (props) => {
   const [nameAvailable, setNameAvailable] = useState(false);
   const userNameFormUpdate = (postObject, value) => {
     if (value === "" && userName === "") {
-      setUserName('');
+      setUserName('Unknown');
     }
     else if (nameAvailable == false && value != "") {
 
@@ -195,6 +160,8 @@ export const Postsaccordion = (props) => {
   }
 // fetch data here and strore it in jsonData variable
 const [Data, setData] = useState(data);
+
+
 
   const handleDataSubmit = (pid) => {
     // alert(JSON.stringify(comment)); test    works
@@ -228,6 +195,8 @@ const [Data, setData] = useState(data);
     setCommentText('Comment');
   }
   // Handle Comment
+
+
 // enable user collapse and expand accrodion all as one, or individually
   const handleCheckboxChange = (e) => {
     setChecked(e.target.checked);
@@ -235,13 +204,8 @@ const [Data, setData] = useState(data);
     // alert("hello thomas kitaba");
   };
 
-
-  // const notifications =  ['', false];
-  // {newPost && notifications.push(newPost)};
-
   return (
     <>
-    <div> <Notification notifications={notifications} /></div>
     <div class="toggle">
       <input type="checkbox" name="toggle" class="toggle-cb" id="toggle-0" onChange={handleCheckboxChange}/>
       <label class="toggle-label" for="toggle-0">
