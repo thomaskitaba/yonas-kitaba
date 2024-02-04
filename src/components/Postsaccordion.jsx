@@ -67,6 +67,7 @@ export const Postsaccordion = (props) => {
   const lore = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus, nulla dolore ipsum, sunt sit magni blanditiis alias animi, eos laboriosam aliquam quia optio enim repudiandae nostrum velit beatae itaque cupiditate."
   const data = {
   "record": {
+
     "posts": [
       {
         "id": 1,
@@ -81,6 +82,7 @@ export const Postsaccordion = (props) => {
             "text": "This is a comment on the first post.",
             "user": "Commenter1",
             "commentDate": "22-11-23",
+            "likes": 5,
             "replies": [
               {
                 "id": 1,
@@ -94,6 +96,7 @@ export const Postsaccordion = (props) => {
             "text": "Another comment on the first post.",
             "user": "Commenter2",
             "commentDate": "22-11-23",
+            "likes": 8,
             "replies": []
           }
         ]
@@ -102,7 +105,7 @@ export const Postsaccordion = (props) => {
         "id": 2,
         "title": "Second Post",
         "content": "Content for the second post goes here.",
-        "author": "Yonas Kitaba",
+        "author": "Jane Smith",
         "postDate": "22-11-23",
         "likes": 1,
         "comments": [
@@ -111,6 +114,7 @@ export const Postsaccordion = (props) => {
             "text": "Comment on the second post.",
             "user": "Commenter3",
             "commentDate": "22-11-23",
+            "likes": 12,
             "replies": [
               {
                 "id": 1,
@@ -123,10 +127,10 @@ export const Postsaccordion = (props) => {
       },
       {
         "id": 3,
-        "title": "Education reimagined",
-        "content": lore,
-        "author": "Yonas Kitaba",
-        "postDate": "22-11-25",
+        "title": "Third Post",
+        "content": "Third post content.",
+        "author": "Alex Johnson",
+        "postDate": "22-11-23",
         "likes": 1,
         "comments": [
           {
@@ -134,19 +138,19 @@ export const Postsaccordion = (props) => {
             "text": "Comment on the third post.",
             "user": "Commenter4",
             "commentDate": "22-11-23",
+            "likes": 3,
             "replies": []
           }
         ]
       }
     ],
     "users": [
-      {"userId": 0, "userName": 'unknown', "userEmail": 'empty', 'createdDate': '22-11-23'},
-      {"userId": 1, "userName": 'Abebe', "userEmail": 'aaaaaaaaaa@gmail.com', 'createdDate': '22-11-23'},
-      {"userId": 1, "userName": 'Kebede', "userEmail": 'bbbbbbbbbb@gmail.com',  'createdDate': '22-11-23'},
-      {"userId": 1, "userName": 'bekele', "userEmail": 'cccccccccc@gmail.com', 'createdDate': '22-11-23'}
+      { "userId": 1, "userName": "Abebe", "userEmail": "aaaaaaaaaa@gmail.com", "createdDate": "2022-11-23" },
+      { "userId": 2, "userName": "Kebede", "userEmail": "bbbbbbbbbb@gmail.com", "createdDate": "2022-11-23" },
+      { "userId": 3, "userName": "bekele", "userEmail": "cccccccccc@gmail.com", "createdDate": "2022-11-23" }
     ],
     "authors": [
-      {"authorId": 1, "authorName": 'Yonas Kitaba', "authorTitle": 'consultant'},
+      { "authorId": 1, "authorName": "Yonas Kitaba", "authorTitle": "consultant" }
     ]
   },
   "metadata": {
