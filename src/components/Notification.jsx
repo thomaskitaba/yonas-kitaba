@@ -18,7 +18,7 @@ if (notifications[1] === true || notifications[0].length <= 0) {
     <>
       <dir>{notifications}</dir>
          <div className="notification-container notification-text notification-info">
-         <p >if you want to comment, or perform action on the posts you should register your name, email and password</p>
+         <p >if you want to comment, or perform action on the posts you should register your name, email and password <span className='user-buttons'> <a href='#sign-in'>Sign In now </a></span> </p>
        </div>
     </>
   )
