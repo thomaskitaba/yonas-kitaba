@@ -1,9 +1,14 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import logo from '../assets/img/logo.svg';
+import navIcon1 from '../assets/img/nav-icon1.svg';
+import navIcon2 from '../assets/img/nav-icon2.svg';
 
 
-export default Notification = (props) => {
-  // const notifications =  ['', false];
-  const {notifications} = props;
+export const Notification = (props) => {
+
+  const notifications =  ['', false];
+  // const { notifications } = props;
   const[notification, setNotification] = useState(false);
   const [notificationText, setNotificationText] = useState('Your Notifications Here');
 
