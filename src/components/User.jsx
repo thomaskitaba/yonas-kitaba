@@ -74,7 +74,7 @@ export const User = () => {
       {signedIn === false &&
 
       <div className="user-container">
-        <div> {signedIn ? "signedIn=true" : "signedIn=false"} </div>
+
         <div className='sign-in' id='sign-in' onClick={handleSignInClicked}>Sign In</div>
         {
         signInClicked &&
@@ -109,7 +109,7 @@ export const User = () => {
         <div className='sign-up' onClick={handleSignUpClicked}>SignUp</div>
         {
         signUpClicked &&
-          <div className={ signUpClicked && "sign-in-form"}>
+          <div className={ signUpClicked && "sign-up-form"}>
             <form action="" onSubmit={handleFormSignUp}>
               <div className='form-fields'>
                 <div>

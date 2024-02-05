@@ -3,7 +3,6 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import logo from '../assets/img/logo.svg';
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
-import { User } from './User';
 
 
 export const NavBar = () => {
@@ -11,7 +10,6 @@ export const NavBar = () => {
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
 
-  // user related
   useEffect(() => {
     const onScroll = () => {
       if (window.scrollY > 50) {
@@ -29,7 +27,7 @@ export const NavBar = () => {
   return (
     <>
       <div className="center">
-      <Navbar  className={scrolled ? "scrolled center" : "center" }>
+      <Navbar expand="md" className={scrolled ? "scrolled" : "" }>
         <Container>
           <Navbar.Brand href="/">
             <img src={logo} alt="Logo" />
@@ -37,14 +35,12 @@ export const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav">
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>
-          <Navbar.Collapse id="basic-navbar-nav" className="nav-bar-collapse">
+          <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               <Nav.Link href="#home" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
               {/* <Nav.Link href="#reviews" className={activeLink === 'reviews' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('Reviews')}>Reviews</Nav.Link> */}
               <Nav.Link href="#experience" className={activeLink === 'experience' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('experience')}>Experience</Nav.Link>
 
-
-              {/* <Nav.Link> */}
               <NavDropdown title="Consultancy" className="consultancy-dropdown">
                 <NavDropdown.Item href="#curriculum-design" className={activeLink === 'curriculum-design' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('curriculum-design')}>Curriculum Design</NavDropdown.Item>
                 <NavDropdown.Item href="#finish-curriculum" className={activeLink === 'finish-curriculum' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('finish-curriculum')}>Finish Curriculum</NavDropdown.Item>
@@ -57,18 +53,16 @@ export const NavBar = () => {
                 <NavDropdown.Item href="#problem-based-learning" className={activeLink === 'problem-based-learning' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('problem-based-learning')}>Problem Based Learning</NavDropdown.Item>
                 <NavDropdown.Item href="#active-learining" className={activeLink === 'active-learining' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('active-learining')}>Active Learning</NavDropdown.Item>
               </NavDropdown>
-              {/* </Nav.Link> */}
-              <Nav.Link href="#user" className="nav-bar-user"> <User /></Nav.Link>
             </Nav>
             {/* <span className="navbar-text">
               <div className="social-icon">
                 <a href="#1"><img src={navIcon1} alt="" /></a>
                 <a href="#2"><img src={navIcon2} alt="" /></a>
+
               </div>
               <button className="vvd"><span>Let’s Connect</span></button>
             </span> */}
           </Navbar.Collapse>
-
         </Container>
       </Navbar>
       </div>
