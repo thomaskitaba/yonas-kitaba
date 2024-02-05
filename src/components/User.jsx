@@ -45,10 +45,11 @@ export const User = () => {
   return (
     <>
       <div className="user-container">
-        <div className='sign-in' onClick={handleSignInClicked}>SignIn</div>
+
+        <div className='sign-in' onClick={handleSignInClicked}>Sign In</div>
         {
         signInClicked &&
-          <div className="sign-in-form">
+          <div className={ signInClicked && "sign-in-form"}>
             <form action="" >
               <div>
                 <label For="user-name" aria-placeholder='UserName/email' > </label>
