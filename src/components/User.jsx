@@ -22,6 +22,27 @@ export const User = () => {
   const [userInfo, setUserInfo] = useState(userInfoInitializer);
   // const [tempUserInfo, setTempUserInfo] = useState('');
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const signInForm = document.getElementById('sign-in-form');
+      const signUpForm = document.getElementById('sign-up-form');
+
+      if (signInForm && !signInForm.contains(event.target)) {
+        setSignInClicked(false);
+        setSignUpClicked(false);
+      }
+      if (signUpForm && !signUpForm.contains(event.target)) {
+        setSignInClicked(false);
+        setSignUpClicked(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   // toggle the sign in form when sign in is clicked
   const handleSignInClicked = () => {
     if (signInClicked) {
@@ -78,7 +99,7 @@ export const User = () => {
         <div className='sign-in' id='sign-in' onClick={handleSignInClicked}>Sign In</div>
         {
         signInClicked &&
-          <div className={ signInClicked && "sign-in-form"}>
+          <div className={ signInClicked && "sign-in-form"} id="sign-in-form">
             <form action="" onSubmit={handleFormSignIn}>
               <div className='form-fields'>
                 <div>
@@ -109,7 +130,7 @@ export const User = () => {
         <div className='sign-up' onClick={handleSignUpClicked}>SignUp</div>
         {
         signUpClicked &&
-          <div className={ signUpClicked && "sign-up-form"}>
+          <div className={ signUpClicked && "sign-up-form"} id="sign-up-form">
             <form action="" onSubmit={handleFormSignUp}>
               <div className='form-fields'>
                 <div>
