@@ -18,7 +18,7 @@ function App() {
     <>
 
       <NavBar />
-      {/* <Sqlite /> */}
+      <Sqlite />
       <Banner />
       <Notification />
       <Posts />

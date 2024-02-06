@@ -2,21 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Sqlite = () => {
-  const [data, setData] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch data from server using Axios
-    axios.get('/api/data')
-      .then(response => setData(response.data))
-      .catch(error => console.error('Error fetching data:', error));
+    // Fetch user data from the server
+    axios.get('http://localhost:5000/api/posts')
+      .then(response => setPosts(response.data))
+      .catch(error => console.error('Error fetching user data:', error));
   }, []);
 
   return (
     <div>
-      <h1>Data from Server</h1>
+      <h1>React App with Node.js Server and SQLite</h1>
+      <h2>Post List</h2>
       <ul>
-        {data.map(item => (
-          <li key={item.id}>{item.name}</li>
+        {posts.map(post => (
+          <li key={post.postId}>
+            {post.postTitle} - {post.postContent}
+          </li>
         ))}
       </ul>
     </div>
