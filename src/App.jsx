@@ -8,6 +8,8 @@ import { Banner } from './components/Banner'
 import { Notification } from './components/Notification';
 import Posts  from './components/Posts'
 import NavBar2 from './components/NavBar2'
+import Sqlite from './components/Sqlite'
+
 
 function App() {
 
@@ -16,7 +18,7 @@ function App() {
     <>
 
       <NavBar />
-      {/* <User /> */}
+      {/* <Sqlite /> */}
       <Banner />
       <Notification />
       <Posts />
