@@ -17,43 +17,46 @@ const db = new sqlite3.Database('./posts.db', sqlite3.OPEN_READWRITE, (err) => {
 // Endpoint for the root path
 
 //'/
-// GLOBAL variables
-const initializationEror = false;
+
+// TODO: GLOBAL VARIABLES
+const jsonInitialized = false;
 // general sql statments for use in enpoints
 const specficPosts = 'SELECT * FROM posts WHERE postStatus LIKE \"Active\" and postId LIKE ?';
 const allPostsSql = 'SELECT * FROM posts  WHERE postStatus LIKE \"Active\"';
-const allCommentsSql = 'SELECT * FROM comments  WHERE commentStatus LIKE \"Active\"';
-
-
+const allPostCommentsSql = ' SELECT * FROM postCommentsView';
 let allPostsJson = [];
 
-const allPostsFunction = async () => {
-db.all(allPostsSql, (err, rows) => {
-  if (err){
-    console.log(err.message);
-    initializationEror = true;
-  }
-  allPostsJson.push();
-  return allPostsJson.push();
-});
-}
 
-app.get('/api/posts', (req, res) => {
-  db.all(allPostsSql, (err, rows)=> {
-    if(err) {
-      res.status(500).json({error: err.message})
-      return;
-    }
-    console.log(rows);
-    allPostsFunction();
-    res.json(allPostsFunction());
+const allPostsFunction = () => {
+  return new Promise((resolve, reject) => {
+    db.all(allPostsSql, (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(rows);
+      allPostsJson.push("thomas Kitaba");
+      allPostsJson.push(rows);
+
+    });
   });
+};
+
+app.get('/api/posts', async (req, res) => {
+  try {
+    const posts = await allPostsFunction();
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
+
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
 
 // const pids = [1, 4];
