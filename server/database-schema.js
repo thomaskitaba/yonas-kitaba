@@ -64,8 +64,27 @@ db.run(`
         id INTEGER,
         rdbms TEXT,
         databaseVersion TEXT,
-        createdAt TEXT,
-        modifiedAt TEXT
+        createdDate TEXT,
+        updatedDate TEXT,
+        createdTime TEXT,
+        updatedTime TEXT
       )
 `);
 });
+
+// sample data
+db.run(`
+INSERT INTO userTypes (typeName, createdDate, updatedDate) VALUES ('Admin', '2024-02-06', '2024-02-06');
+INSERT INTO userTypes (typeName, createdDate, updatedDate) VALUES ('OutsideSource', '2024-02-06', '2024-02-06');
+INSERT INTO userTypes (typeName, createdDate, updatedDate) VALUES ('UnkownSource', '2024-02-06', '2024-02-06');
+INSERT INTO userTypes (typeName, createdDate, updatedDate) VALUES ('User', '2024-02-06', '2024-02-06');
+INSERT INTO userTypes (typeName, createdDate, updatedDate) VALUES ('Guest', '2024-02-06', '2024-02-06');
+`)
+
+db.run (`
+INSERT INTO users (userName, userEmail, fName, lName, hash, createdDate, updatedDate, userTypeId) VALUES ('YonasKitaba', 'john@example.com', 'Yonas', 'Kitaba', 'hashed_password_1', '2024-02-06', '2024-02-06', 1);
+INSERT INTO users (userName, userEmail, fName, lName, hash, createdDate, updatedDate, userTypeId) VALUES ('ThomasKitaba', 'jane@example.com', 'Thomas', 'Kitaba', 'hashed_password_2', '2024-02-06', '2024-02-06', 1);
+INSERT INTO users (userName, userEmail, fName, lName, hash, createdDate, updatedDate, userTypeId) VALUES ('Alice Johnson', 'alice@example.com', 'Alice', 'Johnson', 'hashed_password_3', '2024-02-06', '2024-02-06', 4);
+INSERT INTO users (userName, userEmail, fName, lName, hash, createdDate, updatedDate, userTypeId) VALUES ('Bob Brown', 'bob@example.com', 'Bob', 'Brown', 'hashed_password_4', '2024-02-06', '2024-02-06', 4);
+INSERT INTO users (userName, userEmail, fName, lName, hash, createdDate, updatedDate, userTypeId) VALUES ('Eva Green', 'eva@example.com', 'Eva', 'Green', 'hashed_password_5', '2024-02-06', '2024-02-06', 5);
+`)
