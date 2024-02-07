@@ -7,7 +7,7 @@ const Sqlite = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/posts');
+        const response = await axios.get('http://localhost:5000');
         setPosts(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -20,10 +20,11 @@ const Sqlite = () => {
     <div>
       <h1>React App with Node.js Server and SQLite</h1>
       <h2>ALL Posts</h2>
+      {/* {JSON.stringify(posts)} */}
       <ul>
         {posts.map(post => (
           <li key={post.postId}>
-            ({post.postId}){post.postTitle} - {post.postContent}
+            ({post.postId}){post.postTitle} - {post.commentContent}
           </li>
         ))}
       </ul>

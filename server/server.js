@@ -25,7 +25,7 @@ const specficPosts = 'SELECT * FROM posts WHERE postStatus LIKE \"Active\" and p
 const allPostsSql = 'SELECT * FROM posts  WHERE postStatus LIKE \"Active\"';
 const allPostCommentsSql = 'SELECT * FROM postCommentsView';
 let allPostsJson = [];
-
+let allPostCommentsJson = [];
 
 const allPostsFunction = () => {
   return new Promise((resolve, reject) => {
@@ -35,21 +35,42 @@ const allPostsFunction = () => {
         return;
       }
       resolve(rows);
-      allPostsJson.push("thomas Kitaba");
       allPostsJson.push(rows);
 
     });
   });
 };
 
-app.get('/api/posts', async (req, res) => {
+// function to get all post comments
+const allPostCommentsFunction = () => {
+  return new Promise ((resolve, reject) => {
+    db.all(allPostCommentsSql, (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(rows);
+    })
+  })
+}
+
+app.get('/', async (req, res) => {
   try {
+    const all = []
     const posts = await allPostsFunction();
-    res.json(posts);
+    allPostsJson.push(posts) // for later use
+    all.push(posts);
+    const postCommentsView = await allPostCommentsFunction();
+    allPostCommentsJson.push(postCommentsView) // for later use
+    all.push(postCommentsView);
+
+    console.log(all)
+    res.json(all[1]);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 // Start the server
