@@ -23,7 +23,7 @@ const jsonInitialized = false;
 // general sql statments for use in enpoints
 const specficPosts = 'SELECT * FROM posts WHERE postStatus LIKE \"Active\" and postId LIKE ?';
 const allPostsSql = 'SELECT * FROM posts  WHERE postStatus LIKE \"Active\"';
-const allPostCommentsSql = ' SELECT * FROM postCommentsView';
+const allPostCommentsSql = 'SELECT * FROM postCommentsView';
 let allPostsJson = [];
 
 
