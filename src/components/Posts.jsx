@@ -126,12 +126,12 @@ const sampleData = {
 }
 
   const [data, setData] = useState(sampleData);
-  const { posts, setPosts } = useContext(MyContext);
+  const { Database, setDatabase } = useContext(MyContext);
   return (
     <Container>
        <ul>
-        {posts && posts.length > 0 ? (
-          posts[2].map(post => (
+        {Database && Database.length > 0 ? (
+          Database[2].map(post => (
             <li key={post.postId}>
               ({post.postId}) {post.postTitle} - {post.postContent}
             </li>

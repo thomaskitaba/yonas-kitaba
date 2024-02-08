@@ -4,13 +4,15 @@ import MyContext from './MyContext';
 import axios from 'axios';
 
 const MyContextProvider = ({ children }) => {
-  const [posts, setPosts] = useState('');
+  const [Database, setDatabase] = useState('');
+  const [userName, setUserName] = useState('Guest');
+  const [userEmail, setUserEmail] = useState('Guest-email');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:5000');
-        setPosts(response.data);
+        setDatabase(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -20,7 +22,7 @@ const MyContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <MyContext.Provider value={{ posts, setPosts }}>
+    <MyContext.Provider value={{ Database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
       {children}
     </MyContext.Provider>
   );

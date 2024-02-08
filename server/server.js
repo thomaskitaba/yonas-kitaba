@@ -29,6 +29,8 @@
   const activeCommentsViewSql = 'SELECT * FROM activeCommentsView';
   const activePostsViewSql = 'SELECT * FROM activePostsView';
   const activeRepliesViewSql = 'SELECT * FROM activeRepliesView';
+  const activeMetadataViewSql = 'SELECT * FROM  activeMetadataView';
+  const activeUsersViewSql = 'SELECT * FROM activeUserView';
 
   let allPostsJson = [];
   let allPostCommentsComment = [];
@@ -39,6 +41,9 @@
   let activePostsView = []
   let activeRepliesView = []
   let allPostCommentsJson = [];
+  let activeMetadataViewJson = [];
+  let activeUsersViewJson = [];
+
 
 
 
@@ -58,8 +63,6 @@
   };
 
   // function to get all post comments
-
-
 
 
   const activePostsCommentsViewFunction = () => {
@@ -110,25 +113,58 @@
     })
   }
 
+  const activeMetadataViewFunction = () => {
+    return new Promise((resolve, reject) => {
+      db.all(activeMetadataViewSql, (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      })
+    });
+  }
+
+  const activeUsersViewFunction = () => {
+    return new Promise((resolve, reject) => {
+      db.all(activeUsersViewSql, (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      })
+    });
+  }
+
   // TODO: ==== NO AUTHORIZATION NEDED =====
 
   app.get('/', async (req, res) => {
     let allData = [];
     try {
-      const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
-      allData.push(activePostCommentsViewTemp);
-
-      const activeCommentsViewTemp= await activeCommentsViewFunction();
-      allData.push(activeCommentsViewTemp);
-      console.log(activeCommentsViewTemp);
 
       const activePostsViewTemp = await activePostsViewFunction();
       allData.push(activePostsViewTemp);
       // console.log(activePostsViewTemp);
 
+      const activeCommentsViewTemp= await activeCommentsViewFunction();
+      allData.push(activeCommentsViewTemp);
+      // console.log(activeCommentsViewTemp);
+
+      const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
+      allData.push(activePostCommentsViewTemp);
+
       const activeRepliesViewTemp = await activeRepliesViewFunction();
       allData.push(activeRepliesViewTemp);
       // console.log(activeRepliesViewTemp);
+
+      const activeUsersViewTemp = await activeUsersViewFunction();
+      allData.push(activeUsersViewTemp);
+
+      const activeMetadataViewTemp = await activeMetadataViewFunction();
+      allData.push(activeMetadataViewTemp);
+
+
       res.json(allData);
     } catch (error) {
       console.log(error);
