@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
+import MyContext from './MyContext';
 
 const Sqlite = () => {
-  const [posts, setPosts] = useState([]);
+  const { posts } = useContext(MyContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000');
-        setPosts(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
     <div>
       <h1>React App with Node.js Server and SQLite</h1>
       <h2>ALL Posts</h2>
-      {/* {JSON.stringify(posts)} */}
       <ul>
-        {posts.map(post => (
-          <li key={post.postId}>
-            ({post.postId}){post.postTitle} - {post.commentContent}
-          </li>
-        ))}
+        {posts && posts.length > 0 ? (
+          posts[2].map(post => (
+            <li key={post.postId}>
+              ({post.postId}) {post.postTitle} - {post.postContent}
+            </li>
+          ))
+        ) : (
+          <li>No posts available</li>
+        )}
       </ul>
     </div>
   );

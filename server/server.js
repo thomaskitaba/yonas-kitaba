@@ -33,7 +33,7 @@
   let allPostsJson = [];
   let allPostCommentsComment = [];
 
-  let allData = []
+
   let activeCommentsViewJson = [];
   let activePostsCommentsView = []
   let activePostsView = []
@@ -113,6 +113,7 @@
   // TODO: ==== NO AUTHORIZATION NEDED =====
 
   app.get('/', async (req, res) => {
+    let allData = [];
     try {
       const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
       allData.push(activePostCommentsViewTemp);
@@ -123,12 +124,12 @@
 
       const activePostsViewTemp = await activePostsViewFunction();
       allData.push(activePostsViewTemp);
-      console.log(activePostsViewTemp);
+      // console.log(activePostsViewTemp);
 
       const activeRepliesViewTemp = await activeRepliesViewFunction();
       allData.push(activeRepliesViewTemp);
-      console.log(activeRepliesViewTemp);
-      res.send(allData);
+      // console.log(activeRepliesViewTemp);
+      res.json(allData);
     } catch (error) {
       console.log(error);
       res.status(500).json({error: error.stack})

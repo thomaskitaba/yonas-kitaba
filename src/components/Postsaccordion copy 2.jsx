@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Accordion, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import MyContext  from './MyContext';
 
 export const Postsaccordion = (props) => {
   const formInitialsDetail = {
@@ -55,9 +56,10 @@ export const Postsaccordion = (props) => {
       console.error('Error updating post with comment', error);
     }
   };
-
+  const {posts, setPosts} = useContext(MyContext);
   return (
     <>
+   
       {data.record.posts.map((post, index) => (
         <div key={post.id} className="accordion-container">
           <div className="post-container">

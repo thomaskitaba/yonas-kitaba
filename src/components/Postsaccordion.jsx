@@ -1,5 +1,5 @@
 // src/components/JSONBinComponent.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Accordion, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
