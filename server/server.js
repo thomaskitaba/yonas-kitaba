@@ -125,6 +125,7 @@
     });
   }
 
+
   const activeUsersViewFunction = () => {
     return new Promise((resolve, reject) => {
       db.all(activeUsersViewSql, (err, rows) => {
@@ -134,8 +135,9 @@
         }
         resolve(rows);
       })
-    });
+    })
   }
+
 
   // TODO: ==== NO AUTHORIZATION NEDED =====
 

@@ -21,8 +21,12 @@ const MyContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // unpack all table data to thir corrosponding variables
+  const [posts, comments, postComments, replies, users, metadata ] = Database;
+
   return (
     <MyContext.Provider value={{ Database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
+
       {children}
     </MyContext.Provider>
   );

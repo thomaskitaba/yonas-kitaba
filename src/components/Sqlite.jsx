@@ -15,7 +15,7 @@ const Sqlite = () => {
         <h6> UserEmail: {userEmail}</h6>
 
         {Database && Database.length > 0 ? (
-          Database[2].map(post => (
+          Database[0].map(post => (
             <li key={post.postId}>
               ({post.postId}) {post.postTitle} - {post.postContent}
             </li>
