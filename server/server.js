@@ -8,7 +8,7 @@
   app.use(cors())
   // Create and initialize the SQLite database
   const db = new sqlite3.Database('./posts.db', sqlite3.OPEN_READWRITE, (err) => {
-    if (err) return conole.error(err);
+    if (err) return console.error(err);
   });
 
   // db.serialize(() => {
@@ -25,16 +25,19 @@
   const specficPosts = 'SELECT * FROM posts WHERE postStatus LIKE \"Active\" and postId LIKE ?';
   const allPostsSql = 'SELECT * FROM posts  WHERE postStatus LIKE \"Active\"';
   const allPostCommentsSql = 'SELECT * FROM postCommentsView';
+  const activePostCommentsViewSql = 'SELECT * FROM activePostCommentsView';
+  const activeCommentsViewSql = 'SELECT * FROM activeCommentsView';
+  const activePostsViewSql = 'SELECT * FROM activePostsView';
+  const activeRepliesViewSql = 'SELECT * FROM activeRepliesView';
 
   let allPostsJson = [];
   let allPostCommentsComment = [];
 
-
+  let allData = []
   let activeCommentsViewJson = [];
   let activePostsCommentsView = []
   let activePostsView = []
   let activeRepliesView = []
-
   let allPostCommentsJson = [];
 
 
@@ -55,23 +58,13 @@
   };
 
   // function to get all post comments
-  const activePostsCommentsViewFunction = () => {
-    return new Promise ((resolve, reject) => {
-      db.all(allPostCommentsSql, (err, rows) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(rows);
-      })
-    })
-  }
+
 
 
 
   const activePostsCommentsViewFunction = () => {
     return new Promise((resolve, reject) => {
-      db.all('SELECT * FROM  activePostsCommentsView', (err, rows) => {
+      db.all(activePostCommentsViewSql, (err, rows) => {
         if (err) {
           reject(err);
           return;
@@ -81,13 +74,63 @@
     });
   }
 
+  const activeCommentsViewFunction = () => {
+    return new Promise((resolve, reject) => {
+      db.all(activeCommentsViewSql, (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      })
+    });
+  }
+
+  const activePostsViewFunction = () => {
+    return new Promise((resolve, reject) => {
+      db.all(activePostsViewSql, (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      })
+    })
+  }
+
+  const activeRepliesViewFunction = () => {
+    return new Promise((resolve, reject) => {
+      db.all(activeRepliesViewSql, (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      })
+    })
+  }
+
   // TODO: ==== NO AUTHORIZATION NEDED =====
 
   app.get('/', async (req, res) => {
     try {
-      const activeCommentsView = wait activePostsCommentsViewFunction();
-      all.push(activeCommentsView);
+      const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
+      allData.push(activePostCommentsViewTemp);
+
+      const activeCommentsViewTemp= await activeCommentsViewFunction();
+      allData.push(activeCommentsViewTemp);
+      console.log(activeCommentsViewTemp);
+
+      const activePostsViewTemp = await activePostsViewFunction();
+      allData.push(activePostsViewTemp);
+      console.log(activePostsViewTemp);
+
+      const activeRepliesViewTemp = await activeRepliesViewFunction();
+      allData.push(activeRepliesViewTemp);
+      console.log(activeRepliesViewTemp);
+      res.send(allData);
     } catch (error) {
+      console.log(error);
       res.status(500).json({error: error.stack})
     }
   });
@@ -96,7 +139,7 @@
     try {
       const posts = await allPostsFunction();
       allPostsJson.push(posts) // for later use
-      res.json(posts)
+      res.json(posts);
 
     } catch (error) {
       res.status(500).json({ error: error.stack });
