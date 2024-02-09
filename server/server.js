@@ -149,9 +149,9 @@
       allData.push(activePostsViewTemp);
       // console.log(activePostsViewTemp);
 
-      const activeCommentsViewTemp= await activeCommentsViewFunction();
-      allData.push(activeCommentsViewTemp);
-      // console.log(activeCommentsViewTemp);
+      // const activeCommentsViewTemp= await activeCommentsViewFunction();
+      // allData.push(activeCommentsViewTemp);
+      // // console.log(activeCommentsViewTemp);
 
       const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
       allData.push(activePostCommentsViewTemp);
@@ -160,8 +160,8 @@
       allData.push(activeRepliesViewTemp);
       // console.log(activeRepliesViewTemp);
 
-      const activeUsersViewTemp = await activeUsersViewFunction();
-      allData.push(activeUsersViewTemp);
+      // const activeUsersViewTemp = await activeUsersViewFunction();
+      // allData.push(activeUsersViewTemp);
 
       const activeMetadataViewTemp = await activeMetadataViewFunction();
       allData.push(activeMetadataViewTemp);

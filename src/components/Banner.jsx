@@ -16,7 +16,6 @@ export const Banner = () => {
               <img src={headerImg} alt="Header Img" />
             </Col>
             <Col XS={12} md={6} xl={7}>
-
               <h1>
                 {/* <span className="wrap"> */}
                 <ul className='moto'>
@@ -24,7 +23,6 @@ export const Banner = () => {
                   <li>Empower Educators and Transform Schools</li>
                   <li>Build Bridges to Educational Equity</li>
                   <li>Unlock Every learners Potential</li>
-
                 </ul>
               {/* </span> */}
               </h1>
