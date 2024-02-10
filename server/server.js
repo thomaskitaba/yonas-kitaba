@@ -7,16 +7,10 @@
 
   app.use(cors())
   // Create and initialize the SQLite database
-  const db = new sqlite3.Database('./posts.db', sqlite3.OPEN_READWRITE, (err) => {
+  const db = new sqlite3.Database('posts.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) return console.error(err);
   });
 
-  // db.serialize(() => {
-  //   db.run(`create, update, insert`)    go here
-  //  });
-  // Endpoint for the root path
-
-  //'/
 
   // TODO: GLOBAL VARIABLES
   const jsonInitialized = false;
