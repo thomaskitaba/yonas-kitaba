@@ -207,8 +207,7 @@ const [Data, setData] = useState(data);
 
   return (
     <>
-    {JSON.stringify(database)}
-
+    {/* {JSON.stringify(database)} */}
 
     <div class="toggle">
       <input type="checkbox" name="toggle" class="toggle-cb" id="toggle-0" onChange={handleCheckboxChange}/>
@@ -221,7 +220,7 @@ const [Data, setData] = useState(data);
         <label htmlFor="allposts">{displayText}</label> */}
     </div>
     {database && database.record && database.record.posts && database.record.posts.length > 0 && (
-    <div class="accordion accordion-flush half-width" id="accordionFlushExample">
+    <div class="accordion accordion-flush half-width" id="accordionFlush-post">
 
       {database.record.posts.map((post, index) => (
         <div class="accordion-item">
@@ -235,7 +234,6 @@ const [Data, setData] = useState(data);
         aria-expanded='true'
         aria-controls={checked ? "flush-collapse" : `flush-collapse-${post.postId}`}
       >
-
         <div className="accordion-button-display">
 
           <div>
@@ -252,7 +250,7 @@ const [Data, setData] = useState(data);
       </button>
       </h2>
 
-      <div id={checked ? "flush-collapse" : `flush-collapse-${post.postId}`} class="accordion-collapse collapse bg-green" data-bs-parent="#accordionFlushExample">
+      <div id={checked ? "flush-collapse" : `flush-collapse-${post.postId}`} class="accordion-collapse collapse bg-green" data-bs-parent="#accordionFlush-post">
         <div class="accordion-body">
           {/* post detail part */}
           <div><HandThumbsUp onClick={()=>alert(post.postId)}/> Likes: {post.likes}</div>
@@ -270,38 +268,58 @@ const [Data, setData] = useState(data);
                   <div>{c.id}</div>
                   <div>Date: {c.commentCreatedDate}</div>
                   <div>by: {c.commenterName}</div>
-                  <div><ArrowUpCircle /> : {c.likes ? c.likes : 0}</div>
+                  <div><HandThumbsUp /> : {c.likes ? c.likes : 0}</div>
                 </div>
                 {c.replies && c.replies.length > 0 && (
-                  <div className="comment-replies">
-                    <div class="accordion accordion-flush half-width" id="accordionFlushExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-green" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-replies" aria-expanded="false" aria-controls="flush-collapseOne-replies">
-                          Replies for Comment {commentIndex}
-                        </button>
-                      </h2>
-                      {/* TODO: Accordion for replies */}
-                      <div id="flush-collapseOne-replies" class="accordion-collapse collapse bg-green" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        {c.replies.map((reply, replyIndex) => (
-                      <div key={reply.id} className="comment-reply-box">
-                        <div className="comment-reply-body">
-                          <div>{reply.commentContent}</div>
+
+
+                    <div class="accordion accordion-flush half-width" id="childAccordion">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed bg-green" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseChild" aria-expanded="false" aria-controls="flush-collapseChild">
+                            Replies
+                          </button>
+                        </h2>
+                        <div id="flush-collapseChild" class="accordion-collapse collapse bg-green" data-bs-parent="#childAccordion">
+                          <div class="accordion-body">
+                          {c.replies.map((reply, replyIndex) => (
+                            <div key={reply.id} className="comment-reply-box">
+                              <div className="comment-reply-body">
+                                <div>{reply.commentContent}</div>
+                              </div>
+                              <div className="comment-reply-footer">
+                                <div>Reply: {replyIndex + 1}</div>
+                                <div>Date: {reply.commentCreatedDate}</div>
+                                <div>by: {reply.userName}</div>
+                                <div><HandThumbsUp/> : {reply.likes ? reply.likes : 0}</div>
+                              </div>
+                            </div>
+                          ))}
+                          </div>
+                          <div className="form">
+                            <form onSubmit={(e) => { e.preventDefault(); handleDataSubmit(post.postId); }}>
+                            <div className="comment-button-container">
+                              <button type="submit" className="comment-button">Reply</button>
+                              <input type="text" name="user" placeholder='your name/email-address' onChange={(e) => userNameFormUpdate(post, e.target.value)}/>
+                              <lable for="user"> User</lable>
+                            </div>
+                            <div className="comment-textarea">
+                              <textarea
+                                placeholder="Add your comment here"
+                                name={`${comment.id + 1}`}
+                                value={comment.text}
+                                onChange={(e) => commentFormUpdate(post, e.target.value)}
+                              />
+                            </div>
+                            <div className="post-icons"></div>
+                          </form>
+                          </div>
                         </div>
-                        <div className="comment-reply-footer">
-                          <div>Reply: {replyIndex}</div>
-                          <div>Date: {reply.commentCreatedDate}</div>
-                          <div>by: {reply.userName}</div>
-                          <div><HandThumbsUp/> : {reply.likes ? reply.likes : 0}</div>
-                        </div>
-                      </div>
-                    ))}
-                        </div>
+
+
                       </div>
                     </div>
-                      </div>
-                  </div>
+
                 )}
               </div>
 ))}
