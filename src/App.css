@@ -668,7 +668,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 30px;
   font-size: 1.25rem;
 }
-.comment-footer {
+.comment-footer, .comment-reply-footer {
   display: flex;
   gap: 20px;
   justify-content: space-around;

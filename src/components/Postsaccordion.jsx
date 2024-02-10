@@ -239,10 +239,10 @@ const [Data, setData] = useState(data);
         <div className="accordion-button-display">
 
           <div>
-            <h6>{post.posId}</h6>
+            <h6>{post.postId}</h6>
           </div>
           <div>
-            <h3>{post.title}</h3>
+            <h3>{post.postTitle}</h3>
           </div>
           <div className=''>
             <p>Date: {post.postCreatedDate ? post.postCreatedDate : ''}</p>
@@ -261,22 +261,54 @@ const [Data, setData] = useState(data);
           {/* comment part */}
             {/* comment content part */}
             <div className="comment-container">
-              {post.comments.map((c, commentIndex) => (
-                <div key={c.id} className="comment-box">
-                  <div className="comment-body">
-                    <div>{JSON.stringify(c.text)} </div>
-                  </div>
-                  <div className="comment-footer">
-                    <div>{c.id}</div>
-                    <div>Date: {c.commentDate} </div>
-                    <div>by: {JSON.stringify(c.user)} </div>
-                    <div><ArrowUpCircle /> : {JSON.stringify(c.likes) ? c.likes : 0}</div>
-                  </div>
+            {post.comments.map((c, commentIndex) => (
+              <div key={c.id} className="comment-box">
+                <div className="comment-body">
+                  <div>{c.commentContent}</div>
                 </div>
-              ))}
+                <div className="comment-footer">
+                  <div>{c.id}</div>
+                  <div>Date: {c.commentCreatedDate}</div>
+                  <div>by: {c.commenterName}</div>
+                  <div><ArrowUpCircle /> : {c.likes ? c.likes : 0}</div>
+                </div>
+                {c.replies && c.replies.length > 0 && (
+                  <div className="comment-replies">
+                    <div class="accordion accordion-flush half-width" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-green" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-replies" aria-expanded="false" aria-controls="flush-collapseOne-replies">
+                          Replies for Comment {commentIndex}
+                        </button>
+                      </h2>
+                      {/* TODO: Accordion for replies */}
+                      <div id="flush-collapseOne-replies" class="accordion-collapse collapse bg-green" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                        {c.replies.map((reply, replyIndex) => (
+                      <div key={reply.id} className="comment-reply-box">
+                        <div className="comment-reply-body">
+                          <div>{reply.commentContent}</div>
+                        </div>
+                        <div className="comment-reply-footer">
+                          <div>Reply: {replyIndex}</div>
+                          <div>Date: {reply.commentCreatedDate}</div>
+                          <div>by: {reply.userName}</div>
+                          <div><HandThumbsUp/> : {reply.likes ? reply.likes : 0}</div>
+                        </div>
+                      </div>
+                    ))}
+                        </div>
+                      </div>
+                    </div>
+                      </div>
+                  </div>
+                )}
+              </div>
+))}
+
               {/* comment form */}
               <div className="form">
-                <form onSubmit={(e) => { e.preventDefault(); handleDataSubmit(post.id); }}>
+                <form onSubmit={(e) => { e.preventDefault(); handleDataSubmit(post.postId); }}>
                 <div className="comment-button-container">
                   <button type="submit" className="comment-button">Comment</button>
                   <input type="text" name="user" placeholder='your name/email-address' onChange={(e) => userNameFormUpdate(post, e.target.value)}/>
