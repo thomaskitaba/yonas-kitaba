@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import MyContext from './MyContext';
 
 const Sqlite = () => {
-  const { Database, setDatabase } = useContext(MyContext);
+  const { database, setDatabase } = useContext(MyContext);
   const { userEmail, setUserEmail} = useContext(MyContext);
   const { userName, setUserName} = useContext(MyContext);
   // const [posts] = Database[2];
@@ -11,11 +11,12 @@ const Sqlite = () => {
       <h1>React App with Node.js Server and SQLite</h1>
       <h2>ALL Posts</h2>
       <ul>
+
         <h6> UserName: {userName}</h6>
         <h6> UserEmail: {userEmail}</h6>
 
-        {Database && Database.length > 0 ? (
-          Database[0].map(post => (
+        {database && database.length > 0 ? (
+          database[0].map(post => (
             <li key={post.postId}>
               ({post.postId}) {post.postTitle} - {post.postContent}
             </li>

@@ -125,7 +125,6 @@
     });
   }
 
-
   const activeUsersViewFunction = () => {
     return new Promise((resolve, reject) => {
       db.all(activeUsersViewSql, (err, rows) => {
@@ -139,33 +138,30 @@
   }
 
 
-  // TODO: ==== NO AUTHORIZATION NEDED =====
+  // TODO: ==== Code Recycle bin=====
+      // const activeCommentsViewTemp= await activeCommentsViewFunction();
+      // allData.push(activeCommentsViewTemp);
+
+// const activeUsersViewTemp = await activeUsersViewFunction();
+      // allData.push(activeUsersViewTemp);
 
   app.get('/', async (req, res) => {
     let allData = [];
     try {
-
+      //  content: posts + author     index: 0
       const activePostsViewTemp = await activePostsViewFunction();
-      allData.push(activePostsViewTemp);
-      // console.log(activePostsViewTemp);
-
-      // const activeCommentsViewTemp= await activeCommentsViewFunction();
-      // allData.push(activeCommentsViewTemp);
-      // // console.log(activeCommentsViewTemp);
-
+      //  content: postComments + comments + commenter     index: 1
       const activePostCommentsViewTemp = await activePostsCommentsViewFunction();
-      allData.push(activePostCommentsViewTemp);
-
+      //  content: replies + replier     index: 2
       const activeRepliesViewTemp = await activeRepliesViewFunction();
-      allData.push(activeRepliesViewTemp);
-      // console.log(activeRepliesViewTemp);
-
-      // const activeUsersViewTemp = await activeUsersViewFunction();
-      // allData.push(activeUsersViewTemp);
-
+      //  content: metadata     index: 3
       const activeMetadataViewTemp = await activeMetadataViewFunction();
-      allData.push(activeMetadataViewTemp);
 
+      // PUSH RESULTS IN SPECFIC ORDER
+      allData.push(activePostsViewTemp);
+      allData.push(activePostCommentsViewTemp);
+      allData.push(activeRepliesViewTemp);
+      allData.push(activeMetadataViewTemp);
 
       res.json(allData);
     } catch (error) {

@@ -4,7 +4,7 @@ import MyContext from './MyContext';
 import axios from 'axios';
 
 const MyContextProvider = ({ children }) => {
-  const [Database, setDatabase] = useState('');
+  const [database, setDatabase] = useState('');
   const [userName, setUserName] = useState('Guest');
   const [userEmail, setUserEmail] = useState('Guest-email');
 
@@ -21,11 +21,9 @@ const MyContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  // unpack all table data to thir corrosponding variables
-  const [posts, comments, postComments, replies, users, metadata ] = Database;
 
   return (
-    <MyContext.Provider value={{ Database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
+    <MyContext.Provider value={{ database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
 
       {children}
     </MyContext.Provider>
