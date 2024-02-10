@@ -35,7 +35,7 @@
   let allPostsJson = [];
   let allPostCommentsComment = [];
 
-
+  let database = { record: ''};
   let activeCommentsViewJson = [];
   let activePostsCommentsView = []
   let activePostsView = []
@@ -137,6 +137,26 @@
     })
   }
 
+  // Unpack all
+  const unpackDatabase = (data) => {
+    const [myPosts, postComments, replies, metadata] = data;
+
+    const posts = myPosts.sort((a, b) => new Date(b.postCreatedDate) - new Date(a.postCreatedDate));
+    const postsWithComments = posts.map(post => {
+      const comments = postComments.filter(comment => comment.postId === post.postId);
+      return { ...post, comments };
+    });
+
+    const postsWithCommentsAndReplies = postsWithComments.map(post => {
+      const postCommentsWithReplies = post.comments.map(comment => {
+        const commentReplies = replies.filter(reply => reply.parentId === comment.commenterId);
+        return { ...comment, replies: commentReplies };
+      });
+      return { ...post, comments: postCommentsWithReplies };
+    });
+
+    return { posts: postsWithCommentsAndReplies };
+  };
 
   // TODO: ==== Code Recycle bin=====
       // const activeCommentsViewTemp= await activeCommentsViewFunction();
@@ -162,8 +182,12 @@
       allData.push(activePostCommentsViewTemp);
       allData.push(activeRepliesViewTemp);
       allData.push(activeMetadataViewTemp);
-
       res.json(allData);
+      // TODO:  here the server handles the unpacking
+      // const allUnpacked = unpackDatabase(allData);
+      // database.record = allUnpacked;
+      // res.json(database);
+
     } catch (error) {
       console.log(error);
       res.status(500).json({error: error.stack})

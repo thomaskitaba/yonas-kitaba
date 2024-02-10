@@ -10,11 +10,12 @@ const Sqlite = () => {
     <div>
       <h1>React App with Node.js Server and SQLite</h1>
       <h2>ALL Posts</h2>
+      <h6>{database.post}</h6>
+{JSON.stringify(database)}
       <ul>
 
         <h6> UserName: {userName}</h6>
         <h6> UserEmail: {userEmail}</h6>
-
         {database && database.length > 0 ? (
           database[0].map(post => (
             <li key={post.postId}>
