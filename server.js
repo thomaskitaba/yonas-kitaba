@@ -12,7 +12,7 @@
 
   // TODO: display index.html instead of server.js on production env-t
 
-  Serve static files from the 'build' directory
+  // Serve static files from the 'build' directory
   app.use(express.static(path.join(__dirname, 'build')));
 
   // Catch-all route to serve the 'index.html' for any other requests
