@@ -8,7 +8,16 @@
 
   app.use(cors())
   // Serve static files from the 'build' directory
-  app.use(express.static(path.join(__dirname, '..', 'build')));
+
+  // TODO: display index.html instead of server.js on production env-t
+  
+  // Serve static files from the 'build' directory
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  // Catch-all route to serve the 'index.html' for any other requests
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 
 
   // Create and initialize the SQLite database
@@ -76,10 +85,6 @@ WHERE \
 // Apply authentication middleware to all routes that need protection
 app.use('/api', authenticate);
 
-  // Catch-all route to serve the 'index.html' for any other requests
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-  });
 
   //
 
