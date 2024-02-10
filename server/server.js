@@ -1,13 +1,18 @@
   const express = require('express');
   const cors = require('cors');
   const sqlite3 = require('sqlite3');
+  const path = require('path');
 
   const app = express();
   const port = 5000;
 
   app.use(cors())
+  // Serve static files from the 'build' directory
+  app.use(express.static(path.join(__dirname, '..', 'build')));
+
+
   // Create and initialize the SQLite database
-  const db = new sqlite3.Database('posts.db', sqlite3.OPEN_READWRITE, (err) => {
+  const db = new sqlite3.Database('../posts.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) return console.error(err);
   });
 
@@ -263,3 +268,8 @@ app.use('/api', authenticate);
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
+
+  // Catch-all route to serve the 'index.html' for any other requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', '..', 'index.html'));
+});
