@@ -76,6 +76,10 @@ WHERE \
 // Apply authentication middleware to all routes that need protection
 app.use('/api', authenticate);
 
+  // Catch-all route to serve the 'index.html' for any other requests
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+  });
 
   //
 
@@ -268,8 +272,3 @@ app.use('/api', authenticate);
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
-
-  // Catch-all route to serve the 'index.html' for any other requests
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
