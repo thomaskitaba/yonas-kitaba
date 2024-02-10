@@ -12,13 +12,13 @@
 
   // TODO: display index.html instead of server.js on production env-t
 
-  // Serve static files from the 'build' directory
-  app.use(express.static(path.join(__dirname, 'dist')));
+  // // Serve static files from the 'build' directory
+  // app.use(express.static(path.join(__dirname, 'dist')));
 
-  // Catch-all route to serve the 'index.html' for any other requests
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-  });
+  // // Catch-all route to serve the 'index.html' for any other requests
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  // });
 
 
   // Create and initialize the SQLite database
