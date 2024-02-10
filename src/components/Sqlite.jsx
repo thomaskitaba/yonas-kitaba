@@ -11,7 +11,7 @@ const Sqlite = () => {
       <h1>React App with Node.js Server and SQLite</h1>
       <h2>ALL Posts</h2>
       <h6>{database.post}</h6>
-{JSON.stringify(database)}
+    {/* {JSON.stringify(database)} */}
       <ul>
 
         <h6> UserName: {userName}</h6>

@@ -16,12 +16,12 @@ const MyContextProvider = ({ children }) => {
         // setDatabase(response.data);
         tempDatabase= unpackDatabase(response.data);
         unpackedDatabase.record = tempDatabase;
-      setDatabase(unpackedDatabase);
+
+        setDatabase(unpackedDatabase);
         // setDatabase(tempDatabase);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
-
     };
 
     fetchData();
@@ -46,8 +46,6 @@ const MyContextProvider = ({ children }) => {
 
     return { posts: postsWithCommentsAndReplies };
   };
-
-
 
   return (
     <MyContext.Provider value={{ database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
