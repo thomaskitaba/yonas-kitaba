@@ -222,7 +222,7 @@ const [Data, setData] = useState(data);
     {database && database.record && database.record.posts && database.record.posts.length > 0 && (
     <div class="accordion accordion-flush half-width" id="accordionFlush-post">
 
-      {database.record.posts.map((post, index) => (
+      {database.record.posts.map((post, postIndex) => (
         <div class="accordion-item">
       <h2 class="accordion-header">
 
@@ -237,10 +237,12 @@ const [Data, setData] = useState(data);
         <div className="accordion-button-display">
 
           <div>
-            <h6>{post.postId}</h6>
+            <h6>{postIndex + 1}</h6>
+
           </div>
           <div>
             <h3>{post.postTitle}</h3>
+            <div>{post.postDescription && post.postDescription}</div>
           </div>
           <div className=''>
             <p>Date: {post.postCreatedDate ? post.postCreatedDate : ''}</p>
@@ -253,7 +255,7 @@ const [Data, setData] = useState(data);
       <div id={checked ? "flush-collapse" : `flush-collapse-${post.postId}`} class="accordion-collapse collapse bg-green" data-bs-parent="#accordionFlush-post">
         <div class="accordion-body">
           {/* post detail part */}
-          <div><HandThumbsUp onClick={()=>alert(post.postId)}/> Likes: {post.likes}</div>
+          <div><HandThumbsUp onClick={()=>alert(post.postId ? post.postId : 0)}/> </div>
           {/* Post part */}
             <div className="post-content">{post.postContent}</div>
           {/* comment part */}
@@ -282,15 +284,16 @@ const [Data, setData] = useState(data);
                         <div id="flush-collapseChild" class="accordion-collapse collapse bg-green" data-bs-parent="#childAccordion">
                           <div class="accordion-body">
                           {c.replies.map((reply, replyIndex) => (
-                            <div key={reply.id} className="comment-reply-box">
+                            <div key={reply.replyId} className="comment-reply-box">
                               <div className="comment-reply-body">
-                                <div>{reply.commentContent}</div>
+                                <div>{reply.replyContent}</div>
                               </div>
                               <div className="comment-reply-footer">
                                 <div>Reply: {replyIndex + 1}</div>
-                                <div>Date: {reply.commentCreatedDate}</div>
-                                <div>by: {reply.userName}</div>
-                                <div><HandThumbsUp/> : {reply.likes ? reply.likes : 0}</div>
+                                <div>Date: {reply.replyCreatedDate}</div>
+                                <div>by: {reply.replierName}</div>
+                                <div><HandThumbsUp/>: {reply.likes ? reply.likes : 0}</div>
+
                               </div>
                             </div>
                           ))}
@@ -319,7 +322,7 @@ const [Data, setData] = useState(data);
 
                 )}
               </div>
-))}
+    ))}
 
               {/* comment form */}
               <div className="form">
