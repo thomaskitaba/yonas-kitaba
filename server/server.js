@@ -27,7 +27,24 @@
   const allPostCommentsSql = 'SELECT * FROM postCommentsView';
   const activePostCommentsViewSql = 'SELECT * FROM activePostCommentsView';
   const activeCommentsViewSql = 'SELECT * FROM activeCommentsView';
-  const activePostsViewSql = 'SELECT * FROM activePostsView';
+  const activePostsViewSql = 'SELECT \
+  posts.postId, \
+  posts.postTitle, \
+  posts.postContent, \
+  posts.description, \
+  posts.postStatus, \
+  posts.postCreatedDate, \
+  posts.postUpdatedDate, \
+  posts.postUpdatedTime, \
+  posts.postCreatedTime, \
+  users.userName AS authorName, \
+  users.userEmail AS authorEmail \
+FROM \
+  posts \
+JOIN \
+  users ON posts.authorId = users.userId \
+WHERE \
+  posts.postStatus LIKE \'active\'';
   const activeRepliesViewSql = 'SELECT * FROM activeRepliesView';
   const activeMetadataViewSql = 'SELECT * FROM  activeMetadataView';
   const activeUsersViewSql = 'SELECT * FROM activeUserView';
@@ -45,6 +62,20 @@
   let activeUsersViewJson = [];
 
 
+  // Authentication middleware
+  const apiKey = process.env.MY_API_KEY;
+
+  const authenticate = (req, res, next) => {
+  const providedApiKey = req.headers['x-api-key'] || req.query.apiKey;
+  if (providedApiKey && providedApiKey === apiKey) {
+    next(); // Proceed to the next middleware/route handler
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+};
+
+// Apply authentication middleware to all routes that need protection
+app.use('/api', authenticate);
 
 
   //
@@ -194,7 +225,7 @@
     }
   });
 
-  app.get('/api/posts', async (req, res) => {
+  app.get('/api/posts', authenticate, async (req, res) => {
     try {
       const posts = await allPostsFunction();
       allPostsJson.push(posts) // for later use
