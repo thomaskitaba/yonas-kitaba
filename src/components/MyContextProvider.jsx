@@ -7,12 +7,14 @@ const MyContextProvider = ({ children }) => {
   const [database, setDatabase] = useState('');
   const [userName, setUserName] = useState('Guest');
   const [userEmail, setUserEmail] = useState('Guest-email');
+  const [endpoint, setEndpoint] = useState('https://tom-blog-post-2.onrender.com');
+  // const [endpoint, setEndpoint] = useState('http://localhost:5000');
   let tempDatabase  = '';
   let unpackedDatabase = { record: '' };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/index');
+        const response = await axios.get(endpoint + '/');
         // setDatabase(response.data);
         tempDatabase= unpackDatabase(response.data);
         unpackedDatabase.record = tempDatabase;
@@ -48,7 +50,7 @@ const MyContextProvider = ({ children }) => {
   };
 
   return (
-    <MyContext.Provider value={{ database, setDatabase, userName, setUserName,userEmail, setUserEmail }}>
+    <MyContext.Provider value={{ database, setDatabase, userName, setUserName, userEmail, setUserEmail, endpoint, setEndpoint }}>
 
       {children}
     </MyContext.Provider>
