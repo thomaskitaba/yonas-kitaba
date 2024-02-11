@@ -16,7 +16,7 @@
   app.use(express.static(path.join(__dirname, '..', 'dist')));
 
   // Catch-all route to serve the 'index.html' for any other requests
-  app.get('/', (req, res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
   });
 
@@ -205,7 +205,7 @@ app.use('/api', authenticate);
 // const activeUsersViewTemp = await activeUsersViewFunction();
       // allData.push(activeUsersViewTemp);
 
-  app.get('/index', async (req, res) => {
+  app.get('/', async (req, res) => {
     let allData = [];
     try {
       //  content: posts + author     index: 0
