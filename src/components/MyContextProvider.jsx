@@ -4,11 +4,13 @@ import MyContext from './MyContext';
 import axios from 'axios';
 
 const MyContextProvider = ({ children }) => {
+
   const [database, setDatabase] = useState('');
   const [userName, setUserName] = useState('Guest');
   const [userEmail, setUserEmail] = useState('Guest-email');
-  const [endpoint, setEndpoint] = useState('https://tom-blog-post-2.onrender.com');
-  // const [endpoint, setEndpoint] = useState('http://localhost:5000');
+  const [myApiKey, setMyApiKey ] = useState('NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO');
+  // const [endpoint, setEndpoint] = useState('https://tom-blog-post-2.onrender.com');
+  const [endpoint, setEndpoint] = useState('http://localhost:5000');
   let tempDatabase  = '';
   let unpackedDatabase = { record: '' };
   useEffect(() => {
@@ -50,8 +52,7 @@ const MyContextProvider = ({ children }) => {
   };
 
   return (
-    <MyContext.Provider value={{ database, setDatabase, userName, setUserName, userEmail, setUserEmail, endpoint, setEndpoint }}>
-
+    <MyContext.Provider value={{ database, setDatabase, userName, setUserName, userEmail, setUserEmail, myApiKey, setMyApiKey, endpoint, setEndpoint}}>
       {children}
     </MyContext.Provider>
   );

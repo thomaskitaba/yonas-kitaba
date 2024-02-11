@@ -2,12 +2,21 @@
   const cors = require('cors');
   const sqlite3 = require('sqlite3');
   const path = require('path');
+  const bodyParser = require('body-parser');
+
+
 
   const app = express();
   const port = 5000;
   // const port = process.env.PORT || 5000;
 
   app.use(cors())
+
+  // Choose the appropriate parser based on your login form's data submission method
+  // Here, assuming JSON-based submission:
+  app.use(bodyParser.json());
+
+
   // Serve static files from the 'build' directory
 
   // TODO: display index.html instead of server.js on production env-t
@@ -36,24 +45,7 @@
   const allPostCommentsSql = 'SELECT * FROM postCommentsView';
   const activePostCommentsViewSql = 'SELECT * FROM activePostCommentsView';
   const activeCommentsViewSql = 'SELECT * FROM activeCommentsView';
-  const activePostsViewSql = 'SELECT \
-  posts.postId, \
-  posts.postTitle, \
-  posts.postContent, \
-  posts.description, \
-  posts.postStatus, \
-  posts.postCreatedDate, \
-  posts.postUpdatedDate, \
-  posts.postUpdatedTime, \
-  posts.postCreatedTime, \
-  users.userName AS authorName, \
-  users.userEmail AS authorEmail \
-FROM \
-  posts \
-JOIN \
-  users ON posts.authorId = users.userId \
-WHERE \
-  posts.postStatus LIKE \'active\'';
+  const activePostsViewSql = 'SELECT * from activePostsView';
   const activeRepliesViewSql = 'SELECT * FROM activeRepliesView';
   const activeMetadataViewSql = 'SELECT * FROM  activeMetadataView';
   const activeUsersViewSql = 'SELECT * FROM activeUserView';
@@ -71,23 +63,32 @@ WHERE \
   let activeUsersViewJson = [];
 
 
+
+
+
   // Authentication middleware
   const apiKey = process.env.MY_API_KEY;
 
   const authenticate = (req, res, next) => {
   const providedApiKey = req.headers['x-api-key'] || req.query.apiKey;
-  if (providedApiKey && providedApiKey === apiKey) {
+  if (providedApiKey && providedApiKey === "'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO'") {
     next(); // Proceed to the next middleware/route handler
   } else {
     res.status(401).json({ error: 'Unauthorized' });
   }
 };
-
+app.use('/api/login', authenticate);
 // Apply authentication middleware to all routes that need protection
-app.use('/api', authenticate);
 
 
-  //
+
+ // TODO: TABLE OF content
+  // fuctions  ----
+
+  // ---- 1.   /   :- root route
+  // ---- 2.   /api/login  :- login
+  // ---- 3.   /signup     :- signup
+
 
   const allPostsFunction = () => {
     return new Promise((resolve, reject) => {
@@ -198,12 +199,8 @@ app.use('/api', authenticate);
     return { posts: postsWithCommentsAndReplies };
   };
 
-  // TODO: ==== Code Recycle bin=====
-      // const activeCommentsViewTemp= await activeCommentsViewFunction();
-      // allData.push(activeCommentsViewTemp);
 
-// const activeUsersViewTemp = await activeUsersViewFunction();
-      // allData.push(activeUsersViewTemp);
+
 
   app.get('/', async (req, res) => {
     let allData = [];
@@ -247,6 +244,13 @@ app.use('/api', authenticate);
 
   // TODO   signup    registration doesnot require authorization
 
+  app.post('/api/login',(req, res) => {
+    // Since we're using the authenticate middleware, if the request reaches this point, it means authentication was successful
+    const { userName, password } = req.body;
+    const result = `Your username is ${userName} and your password is ${password}`;
+    res.send(result);
+  });
+
   // TODO:   ====== AUTHORIZATION NEDED====== to perform these activities
 
   // comment Mangement
@@ -278,3 +282,9 @@ app.use('/api', authenticate);
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
+// TODO: ==== Code Recycle bin=====
+      // const activeCommentsViewTemp= await activeCommentsViewFunction();
+      // allData.push(activeCommentsViewTemp);
+
+// const activeUsersViewTemp = await activeUsersViewFunction();
+      // allData.push(activeUsersViewTemp);

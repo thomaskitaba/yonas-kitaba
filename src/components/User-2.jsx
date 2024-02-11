@@ -5,30 +5,23 @@ import MyContext from './MyContext';
 // import { Notification } from './Notification';
 
 export const User = () => {
-  // global contexts
-  const { endpoint, setEndpoint}= useContext(MyContext);
-  const { myApiKey, setMyApiKey } = useContext(MyContext);
-  const { userName, setUserName } = useContext(MyContext);
 
-  const[user, setUser] = useState('normal User');
-  const[signedIn, setSignedIn] = useState(false);
-  const [signInError, setSignInError] = useState(false);
-  const [ signInInfo, setSignInInfo ] = useState('Provide your userName or email');
+  const [ user, setUser] = useState('normal User');
+  // const [ userName, setUserName] = useState('');
+  const { userName, setUserName} = useContext(MyContext);
+  const [ userPassword, setUserPassword ] = useState('');
+  const [signedIn, setSignedIn] = useState(false);
   const [singedUp, setSignedUp] = useState(false);
   const [signInClicked, setSignInClicked] = useState(false);
   const [signUpClicked, setSignUpClicked] = useState(false);
   const notifications =  ['', false];
-  const [name, setName ] = useState('');
-  const [password, setPassword ] = useState('');
-  // const userInfoInitializer = {
-  //   "userId": '',
-  //   "userName": "",
-  //   "userEmail": "",
-  //   "createdDate": "",
-  // }
-  // const [userInfo, setUserInfo] = useState(userInfoInitializer);
-
-
+  const userInfoInitializer = {
+    "userId": '',
+    "userName": "",
+    "userEmail": "",
+    "createdDate": "",
+  }
+  const [userInfo, setUserInfo] = useState(userInfoInitializer);
   useEffect(() => {
     const handleClickOutside = (event) => {
       const signInForm = document.getElementById('sign-in-form');
@@ -43,14 +36,13 @@ export const User = () => {
         setSignUpClicked(false);
       }
     };
-
+    // TODO:   add session something to check if user has been loged in
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
   // toggle the sign in form when sign in is clicked
   const handleSignInClicked = () => {
     if (signInClicked) {
@@ -77,34 +69,14 @@ export const User = () => {
     }
   }
 
+
+
   const handleFormSignIn = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:5000/api/login', { name, password }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO',
-        }
-      });
 
-      if (response.status >= 200 && response.status < 300) {
-        alert(response.data);
-        setUserName(name);
-        setPassword('');
-        // setSignInError(true);
-      } else {
-        // Handle failed login
-        // setSignInError(true);
-      }
-    } catch (error) {
-      console.error('Error logging in:', error);
-      // Handle error
-      setSignInError(true);
-
-    }
-  };
-
+    setSignedIn(true);
+  }
 
   const handleFormSignUp = (e) => {
     e.prventDefault();
@@ -117,35 +89,33 @@ export const User = () => {
       {signedIn === false &&
 
       <div className="user-container">
+
         <div className='sign-in' id='sign-in' onClick={handleSignInClicked}>Sign In</div>
         {
         signInClicked &&
           <div className={ signInClicked && "sign-in-form"} id="sign-in-form">
             <form action="" onSubmit={handleFormSignIn}>
-              {signInError ? ( <div className="text-alert">Provide Valid info</div>) :
-              (<div className="text-info"> you can use your userName or email</div>)}
               <div className='form-fields'>
                 <div>
                   <label For="user-name" placeholder='UserName/email' > UserName </label>
                 </div>
                 <div>
-                  <input type="text" name="user-name" value={name} onChange={(e)=> setName(e.target.value)}></input>
+                  <input type="text" name="user-name" value={userName} onChange={(e) => setUserName(e.target.value)}></input>
                 </div>
               </div>
               <div className='form-fields'>
                 <div>
-                  <label For="user-password" placeholder='Password'> Password </label>
+                  <label For="user-password" placeholder='Password' value={password} onChange={ (e) => setUserPassword(e.target.value)}> Password </label>
                 </div>
                 <div>
-                  <input type="text" name="user-password" value={password} onChange={(e)=> setPassword(e.target.value)}></input>
+                  <input type="text" name="user-password"></input>
                 </div>
               </div>
               <div>
-                  <h1>{password}</h1>
-                  <h1>{name}</h1>
-              <div>
-                  <button type='submit'>Sign In</button>
-              </div>
+
+                <div>
+                  <button >Sign In</button>
+                </div>
               </div>
             </form>
 
@@ -161,7 +131,7 @@ export const User = () => {
                   <label For="user-name" placeholder='UserName' >userName </label>
                 </div>
                 <div>
-                  <input type="text" name="user-name" ></input>
+                  <input type="text" name="user-name" value={userInfo.name}></input>
                 </div>
               </div>
               <div className='form-fields'>
@@ -169,7 +139,7 @@ export const User = () => {
                   <label For="user-email" placeholder='your Email address' > Email </label>
                 </div>
                 <div>
-                  <input type="text" name="user-email" ></input>
+                  <input type="text" name="user-email" value={userInfo.email}></input>
                 </div>
               </div>
               <div className='form-fields'>
