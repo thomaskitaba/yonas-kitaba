@@ -67,11 +67,11 @@
 
 
   // Authentication middleware
-  const apiKey = process.env.MY_API_KEY;
+  const apiKey = `process.env.REACT_APP_MY_API_KEY`;
 
   const authenticate = (req, res, next) => {
   const providedApiKey = req.headers['x-api-key'] || req.query.apiKey;
-  if (providedApiKey && providedApiKey === "'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO'") {
+  if (providedApiKey && providedApiKey === "NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO") {
     next(); // Proceed to the next middleware/route handler
   } else {
     res.status(401).json({ error: 'Unauthorized' });
@@ -231,6 +231,21 @@ app.use('/api/login', authenticate);
     }
   });
 
+
+  // TODO   signup    registration doesnot require authorization
+
+  app.post('/api/login',(req, res) => {
+    // Since we're using the authenticate middleware, if the request reaches this point, it means authentication was successful
+    const { name, password } = req.body;
+
+
+    const result = `Your username is ${name} and your password is ${password}`;
+    console.log(req.body.name);
+    res.send(result);
+  });
+
+
+
   app.get('/api/posts', authenticate, async (req, res) => {
     try {
       const posts = await allPostsFunction();
@@ -240,15 +255,6 @@ app.use('/api/login', authenticate);
     } catch (error) {
       res.status(500).json({ error: error.stack });
     }
-  });
-
-  // TODO   signup    registration doesnot require authorization
-
-  app.post('/api/login',(req, res) => {
-    // Since we're using the authenticate middleware, if the request reaches this point, it means authentication was successful
-    const { userName, password } = req.body;
-    const result = `Your username is ${userName} and your password is ${password}`;
-    res.send(result);
   });
 
   // TODO:   ====== AUTHORIZATION NEDED====== to perform these activities

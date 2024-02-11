@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Navbar, Nav, NavDropdown, Container, Row, Col} from "react-bootstrap";
 import logo from '../assets/img/logo.svg';
 import MyContext from './MyContext';
+import axios from 'axios';
 // import { Notification } from './Notification';
 
 export const User = () => {
@@ -20,13 +21,6 @@ export const User = () => {
   const notifications =  ['', false];
   const [name, setName ] = useState('');
   const [password, setPassword ] = useState('');
-  // const userInfoInitializer = {
-  //   "userId": '',
-  //   "userName": "",
-  //   "userEmail": "",
-  //   "createdDate": "",
-  // }
-  // const [userInfo, setUserInfo] = useState(userInfoInitializer);
 
 
   useEffect(() => {
@@ -80,11 +74,13 @@ export const User = () => {
   const handleFormSignIn = async (e) => {
     e.preventDefault();
 
+    if (name && password) {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { name, password }, {
+
+      const response = await axios.post(endpoint + '/api/login', { name, password }, {
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'NlunpyC9eK22pDD2PIMPHsfIF6e7uKiZHcehy1KNJO',
+          'x-api-key': myApiKey,
         }
       });
 
@@ -92,7 +88,9 @@ export const User = () => {
         alert(response.data);
         setUserName(name);
         setPassword('');
-        // setSignInError(true);
+
+        setSignedIn(true);
+
       } else {
         // Handle failed login
         // setSignInError(true);
@@ -100,9 +98,13 @@ export const User = () => {
     } catch (error) {
       console.error('Error logging in:', error);
       // Handle error
+      // console.log(response.data);
       setSignInError(true);
 
     }
+  } else {
+    alert("missing field")
+  }
   };
 
 
