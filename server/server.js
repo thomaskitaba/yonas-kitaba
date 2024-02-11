@@ -244,8 +244,6 @@ app.use('/api/login', authenticate);
     res.send(result);
   });
 
-
-
   app.get('/api/posts', authenticate, async (req, res) => {
     try {
       const posts = await allPostsFunction();
