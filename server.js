@@ -35,28 +35,31 @@
   const allPostsSql = 'SELECT * FROM posts  WHERE postStatus LIKE \"Active\"';
   const allPostCommentsSql = 'SELECT * FROM postCommentsView';
   const activePostCommentsViewSql = 'SELECT * FROM activePostCommentsView';
-  const activeCommentsViewSql = 'SELECT * FROM activeCommentsView';
-  const activePostsViewSql = 'SELECT \
-  posts.postId, \
-  posts.postTitle, \
-  posts.postContent, \
-  posts.description, \
-  posts.postStatus, \
-  posts.postCreatedDate, \
-  posts.postUpdatedDate, \
-  posts.postUpdatedTime, \
-  posts.postCreatedTime, \
-  users.userName AS authorName, \
-  users.userEmail AS authorEmail \
-FROM \
-  posts \
-JOIN \
-  users ON posts.authorId = users.userId \
-WHERE \
-  posts.postStatus LIKE \'active\'';
+  const activeCommentsViewSql = 'SELECT * activePostsView';
   const activeRepliesViewSql = 'SELECT * FROM activeRepliesView';
   const activeMetadataViewSql = 'SELECT * FROM  activeMetadataView';
   const activeUsersViewSql = 'SELECT * FROM activeUserView';
+
+
+//   FROM activeCommentsView';
+//   const activePostsViewSql = 'SELECT \
+//   posts.postId, \
+//   posts.postTitle, \
+//   posts.postContent, \
+//   posts.description, \
+//   posts.postStatus, \
+//   posts.postCreatedDate, \
+//   posts.postUpdatedDate, \
+//   posts.postUpdatedTime, \
+//   posts.postCreatedTime, \
+//   users.userName AS authorName, \
+//   users.userEmail AS authorEmail \
+// FROM \
+//   posts \
+// JOIN \
+//   users ON posts.authorId = users.userId \
+// WHERE \
+//   posts.postStatus LIKE \'active\'
 
   let allPostsJson = [];
   let allPostCommentsComment = [];
