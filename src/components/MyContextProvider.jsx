@@ -12,7 +12,7 @@ const MyContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000');
+        const response = await axios.get('http://localhost:5000/index');
         // setDatabase(response.data);
         tempDatabase= unpackDatabase(response.data);
         unpackedDatabase.record = tempDatabase;
