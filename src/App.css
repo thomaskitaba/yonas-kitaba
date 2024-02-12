@@ -51,6 +51,11 @@
   --clr-notification-success: green;
   --clr-notification-alert: red;
 }
+
+#root {
+  /* background-color: red; */
+  padding: 0px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

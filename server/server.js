@@ -35,7 +35,6 @@
     if (err) return console.error(err);
   });
 
-
   // TODO: GLOBAL VARIABLES
   const jsonInitialized = false;
   const all = [];

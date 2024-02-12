@@ -139,7 +139,11 @@ export const Postsaccordion = (props) => {
       setUserName(userName);
     }
   }
-
+  // TODO: helper functions
+  const refineDate = (fullDate) => {
+    const onlyDate = fullDate.slice(0, 10);
+    return (onlyDate);
+  }
   // *** Comment related ****
   const commentFormUpdate = (postObject, value) => {
 
@@ -225,7 +229,6 @@ const [Data, setData] = useState(data);
       {database.record.posts.map((post, postIndex) => (
         <div class="accordion-item">
       <h2 class="accordion-header">
-
       <button
         className="accordion-button collapsed bg-green"
         type="button"
@@ -235,17 +238,15 @@ const [Data, setData] = useState(data);
         aria-controls={checked ? "flush-collapse" : `flush-collapse-${post.postId}`}
       >
         <div className="accordion-button-display">
-
           <div>
             <h6>{postIndex + 1}</h6>
-
           </div>
           <div>
             <h3>{post.postTitle}</h3>
             <div>{post.postDescription && post.postDescription}</div>
           </div>
           <div className=''>
-            <p>Date: {post.postCreatedDate ? post.postCreatedDate : ''}</p>
+            <p>Date: {post.postCreatedDate ? refineDate(post.postCreatedDate) : ''}</p>
             <p>Author: {post.authorName ? post.authorName : 'website owner'}</p>
           </div>
         </div>
@@ -268,7 +269,7 @@ const [Data, setData] = useState(data);
                 </div>
                 <div className="comment-footer">
                   <div>{c.id}</div>
-                  <div>Date: {c.commentCreatedDate}</div>
+                  <div>Date: {refineDate(c.commentCreatedDate)}</div>
                   <div>by: {c.commenterName}</div>
                   <div><HandThumbsUp /> : {c.likes ? c.likes : 0}</div>
                 </div>
@@ -290,10 +291,9 @@ const [Data, setData] = useState(data);
                               </div>
                               <div className="comment-reply-footer">
                                 <div>Reply: {replyIndex + 1}</div>
-                                <div>Date: {reply.replyCreatedDate}</div>
+                                <div>Date: {refineDate(reply.replyCreatedDate)}</div>
                                 <div>by: {reply.replierName}</div>
                                 <div><HandThumbsUp/>: {reply.likes ? reply.likes : 0}</div>
-
                               </div>
                             </div>
                           ))}
@@ -323,7 +323,6 @@ const [Data, setData] = useState(data);
                 )}
               </div>
     ))}
-
               {/* comment form */}
               <div className="form">
                 <form onSubmit={(e) => { e.preventDefault(); handleDataSubmit(post.postId); }}>
